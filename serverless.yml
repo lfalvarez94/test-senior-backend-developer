@@ -1,0 +1,70 @@
+service: marketing-flows
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  environment:
+    DATABASE_URL: ${env:DATABASE_URL}
+    SNS_STAGE_READY_ARN: ${env:SNS_STAGE_READY_ARN}
+    SNS_STAGE_COMPLETED_ARN: ${env:SNS_STAGE_COMPLETED_ARN}
+    SQS_DELAY_QUEUE_URL: ${env:SQS_DELAY_QUEUE_URL}
+    S3_BUCKET: ${env:S3_BUCKET}
+    STRIPE_SECRET_KEY: ${env:STRIPE_SECRET_KEY}
+
+package:
+  individually: true   
+  excludeDevDependencies: true
+  patterns:
+    - '!node_modules/.prisma/**'   # excluye los motores nativos de Prisma
+    - '!node_modules/aws-sdk/**'
+
+functions:
+  api:
+    handler: src/main.handler
+    events:
+      - http:
+          path: /
+          method: any
+      - http:
+          path: /{proxy+}
+          method: any
+
+  processStage:
+    handler: src/presentation/lambda/process-stage.handler.handler
+    events:
+      - sns: ${env:SNS_STAGE_READY_ARN}
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-esbuild
+
+custom:
+  dotenv:
+    path: './.env'
+    include:
+      - DATABASE_URL
+      - SNS_STAGE_READY_ARN
+      - SNS_STAGE_COMPLETED_ARN
+      - SQS_DELAY_QUEUE_URL
+      - S3_BUCKET
+      - STRIPE_SECRET_KEY
+  esbuild:
+    entryPoints:
+      - src/main.ts
+      - src/presentation/lambda/process-stage.handler.ts
+    bundle: true           # bundleea todo en un solo archivo
+    minify: true           # minifica el JS resultante
+    sourcemap: false
+    target: node18         # runtime de AWS
+    platform: node
+    concurrency: 10
+    exclude:
+      - aws-sdk            # ya está disponible en Lambda
+    external:
+      - '@prisma/client'
+      - '@nestjs/websockets/socket-module'
+      - '@nestjs/microservices'
+      - '@nestjs/microservices/microservices-module'
+      - 'class-transformer/storage'
+      - '.prisma/*'

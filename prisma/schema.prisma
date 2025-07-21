@@ -1,0 +1,107 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum StageType {
+  POPUP_TEXT
+  POPUP_FORM
+  EMAIL
+  DELAY
+  COUPON
+  TICKET
+}
+
+enum FlowExecutionStatus {
+  PENDING
+  RUNNING
+  COMPLETED
+  FAILED
+}
+
+enum StageExecutionStatus {
+  PENDING
+  IN_PROGRESS
+  DONE
+  ERROR
+}
+
+model Flow {
+  id          String          @id @default(uuid())
+  name        String
+  description String?
+  stages      Stage[]        
+  executions  FlowExecution[] 
+  createdAt   DateTime        @default(now())  @map("created_at")
+  updatedAt   DateTime        @updatedAt       @map("updated_at")
+  @@map("flows")
+}
+
+model Stage {
+  id        String            @id @default(uuid())
+  flow      Flow              @relation(fields: [flowId], references: [id])
+  flowId    String            @map("flow_id")
+  order     Int               @map("sequence")
+  stageType StageType         @map("stage_type")
+  config    Json              @map("config")
+  createdAt DateTime          @default(now())  @map("created_at")
+  updatedAt DateTime          @updatedAt       @map("updated_at")
+  executions StageExecution[] 
+
+  @@map("stages")
+  @@unique([flowId, order])
+}
+
+model FlowExecution {
+  id          String               @id @default(uuid())
+  flow        Flow                 @relation(fields: [flowId], references: [id])
+  flowId      String               @map("flow_id")
+  userId      String?              @map("user_id")
+  status      FlowExecutionStatus  @default(PENDING) @map("status")
+  startedAt   DateTime             @default(now())   @map("started_at")
+  finishedAt  DateTime?            @map("finished_at")
+  executions  StageExecution[]     
+  @@map("flow_executions")
+  Coupon Coupon[]
+  Ticket Ticket[]
+}
+
+model StageExecution {
+  id               String               @id @default(uuid())
+  flowExecution    FlowExecution        @relation(fields: [flowExecutionId], references: [id])
+  flowExecutionId  String               @map("flow_execution_id")
+  stage            Stage                @relation(fields: [stageId], references: [id])
+  stageId          String               @map("stage_id")
+  status           StageExecutionStatus @default(PENDING) @map("status")
+  scheduledAt      DateTime?            @map("scheduled_at")
+  startedAt        DateTime?            @map("started_at")
+  finishedAt       DateTime?            @map("finished_at")
+  errorMessage     String?              @map("error_message")
+  @@map("stage_executions")
+}
+
+model Coupon {
+  id              String        @id @default(uuid())
+  flowExecution   FlowExecution @relation(fields: [flowExecutionId], references: [id])
+  flowExecutionId String        @map("flow_execution_id")
+  voucherCode     String        @map("voucher_code")
+  qrCodeUrl       String        @map("qr_code_url")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  redeemedAt      DateTime?     @map("redeemed_at")
+  @@map("coupons")
+}
+
+model Ticket {
+  id              String        @id @default(uuid())
+  flowExecution   FlowExecution @relation(fields: [flowExecutionId], references: [id])
+  flowExecutionId String        @map("flow_execution_id")
+  qrCodeUrl       String        @map("qr_code_url")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  redeemedAt      DateTime?     @map("redeemed_at")
+  @@map("tickets")
+}
+
