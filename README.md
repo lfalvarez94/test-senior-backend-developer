@@ -50,16 +50,16 @@ Se sigue el patrón de **Hexagonal Architecture** para desacoplar dominio de inf
        | Application Layer |<------>| Messaging (SNS)|    |
        +---------+---------+        +----------------+    |
                  |                                        |
-       +---------v---------+        +---------------+      |
-       |   Domain Layer    |<-----> | Persistence   |      |
-       +---------+---------+        | (Prisma / RDS)|      |
-                 |                  +---------------+      |
-       +---------v---------+        +---------------+      |
-       | Infrastructure    |<-----> | SES, S3, SQS, |      |
-       | (Adapters)        |        | Stripe, etc.  |      |
-       +-------------------+                           |
-                                                        |
-      +-------------------------------------------------+
+       +---------v---------+        +---------------+     |
+       |   Domain Layer    |<-----> | Persistence   |     |
+       +---------+---------+        | (Prisma / RDS)|     |
+                 |                  +---------------+     |
+       +---------v---------+        +---------------+     |
+       | Infrastructure    |<-----> | SES, S3, SQS, |     |
+       | (Adapters)        |        | Stripe, etc.  |     |
+       +-------------------+                              |
+                                                          |
+      +---------------------------------------------------+
 ```
 
 - **API Layer**: NestJS Controllers / Lambda handlers
@@ -86,7 +86,6 @@ Se sigue el patrón de **Hexagonal Architecture** para desacoplar dominio de inf
 
 ```bash
 git clone 
-cd marketing-flows
 npm install
 npx prisma generate
 ```
