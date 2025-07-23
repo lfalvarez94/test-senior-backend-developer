@@ -18,7 +18,7 @@
 - [Estructura de carpetas](#estructura-de-carpetas)
 - [Endpoints disponibles](#endpoints-disponibles)
 - [Procesamiento de etapas](#procesamiento-de-etapas)
-- [Validaciones de negocio](#validaciones-de-negocio)
+- [Validaciones](#validaciones)
 ---
 
 ## Descripción
@@ -29,6 +29,9 @@ Servicio para definir y ejecutar **Flows** compuestos de múltiples **Stages** (
 
 ## Modelo de datos
 
+<img width="1067" height="882" alt="image" src="https://github.com/user-attachments/assets/9343d8b1-1bd0-47fb-9739-aa97665c0131" />
+
+
 
 ---
 
@@ -36,7 +39,7 @@ Servicio para definir y ejecutar **Flows** compuestos de múltiples **Stages** (
 
 
 
-Se sigue el patrón de **Hexagonal Architecture** (Ports & Adapters) para desacoplar dominio de infraestructuras:
+Se sigue el patrón de **Hexagonal Architecture** para desacoplar dominio de infraestructuras:
 
 ```plaintext
       +----------------------+       Adaptadores externos   
@@ -61,8 +64,11 @@ Se sigue el patrón de **Hexagonal Architecture** (Ports & Adapters) para desaco
 
 - **API Layer**: NestJS Controllers / Lambda handlers
 - **Application Layer**: Casos de uso (Use Cases)
-- **Domain Layer**: Entidades, reglas de negocio
+- **Domain Layer**: Entidades, Enums, Value Objects
 - **Infrastructure Adapters**: Prisma, SNS, SQS, SES, S3, Stripe
+
+- <img width="1106" height="877" alt="image" src="https://github.com/user-attachments/assets/10b3f6b9-b130-46a0-9956-2ce41ca90c18" />
+
 
 ---
 
@@ -97,6 +103,13 @@ SQS_DELAY_QUEUE_URL=https://sqs.../DelayQueue
 S3_BUCKET=my-app-assets
 STRIPE_SECRET_KEY=sk_test_...
 ```
+---
+
+### Migraciones de Prisma
+
+```bash
+npx prisma migrate dev --name init
+```
 
 ---
 
@@ -122,10 +135,10 @@ npx serverless deploy
 
 ```
 src/
-├─ domain/           Entidades y enums
+├─ domain/           Entidades, enums, value objects, interfaces
 ├─ application/      DTOs, interfaces, casos de uso
 ├─ infrastructure/   Adaptadores (Prisma, SNS, etc.)
-├─ presentation/     Controllers, módulos, Lambdas
+├─ apps/     Controllers, módulos, Lambdas
 ```
 
 ---
