@@ -67,7 +67,9 @@ Se sigue el patrón de **Hexagonal Architecture** para desacoplar dominio de inf
 - **Domain Layer**: Entidades, Enums, Value Objects
 - **Infrastructure Adapters**: Prisma, SNS, SQS, SES, S3, Stripe
 
-- <img width="1106" height="877" alt="image" src="https://github.com/user-attachments/assets/10b3f6b9-b130-46a0-9956-2ce41ca90c18" />
+<img width="1146" height="1007" alt="image" src="https://github.com/user-attachments/assets/c81d19f1-5a25-47b8-9ffc-58d86e1cfc9a" />
+
+
 
 
 ---
