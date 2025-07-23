@@ -70,6 +70,7 @@ Se sigue el patrón de **Hexagonal Architecture** para desacoplar dominio de inf
 <img width="1146" height="1007" alt="image" src="https://github.com/user-attachments/assets/c81d19f1-5a25-47b8-9ffc-58d86e1cfc9a" />
 
 
+<img width="3840" height="1818" alt="Untitled diagram _ Mermaid Chart-2025-07-21-040906" src="https://github.com/user-attachments/assets/0a23ee68-07a7-4a1a-9c29-dd15077c31de" />
 
 
 ---
