@@ -1,4 +1,4 @@
-import { StageExecution } from '../../domain/entities/stage-execution.entity';
+import { StageExecution } from '../entities/stage-execution.entity';
 
 export interface StageExecutionRepository {
   createMany(execs: StageExecution[]): Promise<void>;

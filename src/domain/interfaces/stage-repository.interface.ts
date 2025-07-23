@@ -1,4 +1,4 @@
-import { Stage } from '../../domain/entities/stage.entity';
+import { Stage } from '../entities/stage.entity';
 
 export interface StageRepository {
   create(stage: Stage): Promise<void>;

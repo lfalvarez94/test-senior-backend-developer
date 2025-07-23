@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
-import { StageExecutionRepository } from '../../application/interfaces/stage-execution-repository.interface';
+import { StageExecutionRepository } from '../../domain/interfaces/stage-execution-repository.interface';
 import { StageExecution } from '../../domain/entities/stage-execution.entity';
 import { StageExecutionStatus } from '../../domain/enums/stage-execution-status.enum';
 

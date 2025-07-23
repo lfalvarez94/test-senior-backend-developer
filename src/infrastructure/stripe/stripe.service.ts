@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import Stripe from 'stripe';
-import { StripeService } from '../../application/interfaces/stripe.interface';
+import { PaymentService } from '../../domain/interfaces/payment.interface';
 
 @Injectable()
-export class StripeServiceImpl implements StripeService {
+export class StripeServiceImpl implements PaymentService {
   private readonly stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: '2025-06-30.basil',
   });

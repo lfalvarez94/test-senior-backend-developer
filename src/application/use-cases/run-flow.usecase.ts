@@ -1,9 +1,9 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
-import { FlowRepository } from '../interfaces/flow-repository.interface';
-import { FlowExecutionRepository } from '../interfaces/flow-execution-repository.interface';
-import { StageExecutionRepository } from '../interfaces/stage-execution-repository.interface';
-import { MessagingService } from '../interfaces/messaging.interface';
+import { FlowRepository } from '../../domain/interfaces/flow-repository.interface';
+import { FlowExecutionRepository } from '../../domain/interfaces/flow-execution-repository.interface';
+import { StageExecutionRepository } from '../../domain/interfaces/stage-execution-repository.interface';
+import { MessagingService } from '../../domain/interfaces/messaging.interface';
 import { ConfigService } from '@nestjs/config';
 import { FlowExecution } from '../../domain/entities/flow-execution.entity';
 import { StageExecution } from '../../domain/entities/stage-execution.entity';

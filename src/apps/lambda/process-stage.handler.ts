@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { StageProcessorModule } from '../../presentation/modules/stage-processor/stage-processor.module';
+import { StageProcessorModule } from '../modules/stage-processor/stage-processor.module';
 import { ProcessStageUseCase } from '../../application/use-cases/process-stage.usecase';
 import { SNSEvent } from 'aws-lambda';
 

@@ -1,6 +1,6 @@
 import Stripe from 'stripe';
 
-export interface StripeService {
+export interface PaymentService {
   createSession(
     config: Stripe.Checkout.SessionCreateParams,
   ): Promise<Stripe.Checkout.Session>;

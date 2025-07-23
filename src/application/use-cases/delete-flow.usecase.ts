@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { FlowRepository } from '../interfaces/flow-repository.interface';
+import { FlowRepository } from '../../domain/interfaces/flow-repository.interface';
 
 @Injectable()
 export class DeleteFlowUseCase {

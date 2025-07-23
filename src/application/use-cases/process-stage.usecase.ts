@@ -1,11 +1,11 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { StageExecutionRepository } from '../interfaces/stage-execution-repository.interface';
-import { StageRepository } from '../interfaces/stage-repository.interface';
-import { MessagingService } from '../interfaces/messaging.interface';
-import { SqsService } from '../interfaces/sqs.interface';
-import { SesService } from '../interfaces/ses.interface';
-import { S3Service } from '../interfaces/s3.interface';
-import { StripeService } from '../interfaces/stripe.interface';
+import { StageExecutionRepository } from '../../domain/interfaces/stage-execution-repository.interface';
+import { StageRepository } from '../../domain/interfaces/stage-repository.interface';
+import { MessagingService } from '../../domain/interfaces/messaging.interface';
+import { MessageQueueService } from '../../domain/interfaces/message-queue.interface';
+import { EmailService } from '../../domain/interfaces/email.interface';
+import { StorageService } from '../../domain/interfaces/storage.interface';
+import { PaymentService } from '../../domain/interfaces/payment.interface';
 import { ConfigService } from '@nestjs/config';
 import { StageExecution } from '../../domain/entities/stage-execution.entity';
 import { StageType } from '../../domain/enums/stage-type.enum';
@@ -18,10 +18,10 @@ export class ProcessStageUseCase {
     private readonly execRepo: StageExecutionRepository,
     @Inject('StageRepository') private readonly stageRepo: StageRepository,
     @Inject('MessagingService') private readonly messaging: MessagingService,
-    @Inject('SqsService') private readonly sqs: SqsService,
-    @Inject('SesService') private readonly ses: SesService,
-    @Inject('S3Service') private readonly s3: S3Service,
-    @Inject('StripeService') private readonly stripe: StripeService,
+    @Inject('MessageQueueService') private readonly sqs: MessageQueueService,
+    @Inject('EmailService') private readonly ses: EmailService,
+    @Inject('StorageService') private readonly s3: StorageService,
+    @Inject('PaymentService') private readonly stripe: PaymentService,
     private readonly config: ConfigService,
   ) {}
 

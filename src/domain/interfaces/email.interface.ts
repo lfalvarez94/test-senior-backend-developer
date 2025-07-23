@@ -1,4 +1,4 @@
-export interface SesService {
+export interface EmailService {
   sendEmail(config: {
     to: string;
     from: string;

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as AWS from 'aws-sdk';
-import { MessagingService } from '../../application/interfaces/messaging.interface';
+import { MessagingService } from '../../domain/interfaces/messaging.interface';
 
 @Injectable()
 export class SnsService implements MessagingService {

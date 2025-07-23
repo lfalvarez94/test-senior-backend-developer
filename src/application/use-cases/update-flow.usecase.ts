@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { UpdateFlowDto } from '../dtos/update-flow.dto';
-import { FlowRepository } from '../interfaces/flow-repository.interface';
+import { FlowRepository } from '../../domain/interfaces/flow-repository.interface';
 import { Flow } from '../../domain/entities/flow.entity';
 
 @Injectable()

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
-import { StageRepository } from '../../application/interfaces/stage-repository.interface';
+import { StageRepository } from '../../domain/interfaces/stage-repository.interface';
 import { Stage } from '../../domain/entities/stage.entity';
 import { StageType } from '../../domain/enums/stage-type.enum';
 

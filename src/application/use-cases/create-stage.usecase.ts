@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 import { CreateStageDto } from '../dtos/create-stage.dto';
-import { StageRepository } from '../interfaces/stage-repository.interface';
+import { StageRepository } from '../../domain/interfaces/stage-repository.interface';
 import { Stage } from '../../domain/entities/stage.entity';
 import { StageType } from 'src/domain/enums/stage-type.enum';
 

@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import * as AWS from 'aws-sdk';
-import { SesService } from '../../application/interfaces/ses.interface';
+import { EmailService } from '../../domain/interfaces/email.interface';
 
 @Injectable()
-export class SesServiceImpl implements SesService {
+export class SesServiceImpl implements EmailService {
   private readonly ses = new AWS.SES();
 
   async sendEmail(config: {

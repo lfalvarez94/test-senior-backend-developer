@@ -1,4 +1,4 @@
-import { Flow } from '../../domain/entities/flow.entity';
+import { Flow } from '../entities/flow.entity';
 
 export interface FlowRepository {
   create(flow: Flow): Promise<void>;

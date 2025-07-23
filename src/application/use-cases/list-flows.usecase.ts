@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { FlowRepository } from '../interfaces/flow-repository.interface';
+import { FlowRepository } from '../../domain/interfaces/flow-repository.interface';
 import { Flow } from '../../domain/entities/flow.entity';
 
 @Injectable()
