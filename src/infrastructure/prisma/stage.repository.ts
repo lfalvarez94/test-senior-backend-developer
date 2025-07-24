@@ -27,7 +27,13 @@ export class StageRepositoryImpl implements StageRepository {
     });
     return rows.map(
       (r) =>
-        new Stage(r.id, r.flowId, r.order, r.stageType as StageType, (r.config as Record<string, any>) ?? {}),
+        new Stage(
+          r.id,
+          r.flowId,
+          r.order,
+          r.stageType as StageType,
+          (r.config as Record<string, any>) ?? {},
+        ),
     );
   }
 

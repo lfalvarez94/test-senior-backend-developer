@@ -1,22 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import * as AWS from 'aws-sdk';
+import { SQSClient, SendMessageCommand } from '@aws-sdk/client-sqs';
 import { MessageQueueService } from '../../domain/interfaces/message-queue.interface';
 
 @Injectable()
 export class SqsServiceImpl implements MessageQueueService {
-  private readonly sqs = new AWS.SQS();
+  private readonly sqsClient = new SQSClient({});
 
   async sendDelayed(
     queueUrl: string,
     message: any,
     delaySeconds: number,
   ): Promise<void> {
-    await this.sqs
-      .sendMessage({
-        QueueUrl: queueUrl,
-        MessageBody: JSON.stringify(message),
-        DelaySeconds: delaySeconds,
-      })
-      .promise();
+    const cmd = new SendMessageCommand({
+      QueueUrl: queueUrl,
+      MessageBody: JSON.stringify(message),
+      DelaySeconds: delaySeconds,
+    });
+    await this.sqsClient.send(cmd);
   }
 }

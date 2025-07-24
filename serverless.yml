@@ -1,4 +1,4 @@
-service: marketing-flows
+service: flows
 
 provider:
   name: aws
@@ -15,9 +15,11 @@ provider:
 package:
   individually: true   
   excludeDevDependencies: true
-  patterns:
-    - '!node_modules/.prisma/**'   # excluye los motores nativos de Prisma
-    - '!node_modules/aws-sdk/**'
+  patterns:  
+    - '!node_modules/aws-sdk/**' 
+    - 'node_modules/.prisma/client/**'
+    - 'node_modules/@prisma/client/**' 
+
 
 functions:
   api:
@@ -31,7 +33,7 @@ functions:
           method: any
 
   processStage:
-    handler: src/presentation/lambda/process-stage.handler.handler
+    handler: src/apps/lambda/process-stage.handler.handler
     events:
       - sns: ${env:SNS_STAGE_READY_ARN}
 
@@ -52,19 +54,16 @@ custom:
   esbuild:
     entryPoints:
       - src/main.ts
-      - src/presentation/lambda/process-stage.handler.ts
-    bundle: true           # bundleea todo en un solo archivo
-    minify: true           # minifica el JS resultante
+      - src/apps/lambda/process-stage.handler.ts
+    bundle: true           
+    minify: true           
     sourcemap: false
-    target: node18         # runtime de AWS
+    target: node18      
     platform: node
-    concurrency: 10
-    exclude:
-      - aws-sdk            # ya está disponible en Lambda
+    concurrency: 10          
     external:
-      - '@prisma/client'
+      - aws-sdk
       - '@nestjs/websockets/socket-module'
       - '@nestjs/microservices'
       - '@nestjs/microservices/microservices-module'
       - 'class-transformer/storage'
-      - '.prisma/*'
