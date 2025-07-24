@@ -73,16 +73,18 @@ export class ProcessStageUseCase {
         case StageType.POPUP_FORM:
           return;
 
-        case StageType.COUPON:
+        case StageType.COUPON: {
           const qrBuffer = await this.s3.generateQr(stage.config.code);
           await this.s3.upload(`coupons/${exec.id}.png`, qrBuffer);
           exec.markDone();
           break;
+        }
 
-        case StageType.TICKET:
+        case StageType.TICKET: {
           const session = await this.stripe.createSession(stage.config);
           exec.markInProgress();
           return;
+        }
       }
 
       await this.execRepo.update(exec);
